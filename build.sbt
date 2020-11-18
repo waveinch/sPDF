@@ -29,14 +29,6 @@ parallelExecution in Test := false
 
 logLevel in compile := Level.Warn
 
-scmInfo := Some(
-  ScmInfo(
-    url("https://github.com/cloudify/sPDF"),
-    "scm:git:https://github.com/cloudify/sPDF.git",
-    Some("scm:git:git@github.com:cloudify/sPDF.git")
-  )
-)
-
 // add dependencies on standard Scala modules, in a way
 // supporting cross-version publishing
 // taken from: http://github.com/scala/scala-module-dependency-sample
@@ -60,34 +52,11 @@ libraryDependencies ++= Seq (
 // publishing
 publishMavenStyle := true
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
 
-credentials += Credentials(Path.userHome / ".credentials.sonatype")
+bintrayRepository := "maven"
+bintrayOrganization := Some("waveinch")
+publishMavenStyle := true
+licenses += ("Apache-2.0", url("http://www.opensource.org/licenses/apache2.0.php"))
+git.useGitDescribe := true
 
-publishArtifact in Test := false
-
-// publishArtifact in (Compile, packageDoc) := false
-
-// publishArtifact in (Compile, packageSrc) := false
-
-pomIncludeRepository := { _ => false }
-
-pomExtra := (
-  <developers>
-    <developer>
-      <id>cloudify</id>
-      <name>Federico Feroldi</name>
-      <email>pix@yahoo.it</email>
-      <url>http://www.pixzone.com</url>
-    </developer>
-  </developers>
-)
-
-// Josh Suereth's step-by-step guide to publishing on sonatype
-// http://www.scala-sbt.org/using_sonatype.html
+lazy val root = (project in file(".")).enablePlugins(GitVersioning)
