@@ -5,13 +5,17 @@ description := "Create PDFs using plain old HTML+CSS. Uses wkhtmltopdf on the ba
 
 homepage := Some(url("https://github.com/cloudify/sPDF"))
 
+developers := List(
+  Developer(id="minettiandrea", name="Andrea Minetti", email="andrea@wavein.ch", url=url("https://wavein.ch")),
+)
+
 startYear := Some(2013)
 
 licenses := Seq(
   ("MIT", url("http://opensource.org/licenses/MIT"))
 )
 
-organization := "io.github.cloudify"
+organization := "ch.wavein"
 
 scalaVersion := "2.13.0"
 
@@ -49,14 +53,6 @@ libraryDependencies ++= Seq (
   "org.mockito"     %  "mockito-all"    % "1.10.8"  % "test"
 )
 
-// publishing
-publishMavenStyle := true
 
 
-bintrayRepository := "maven"
-bintrayOrganization := Some("waveinch")
-publishMavenStyle := true
-licenses += ("Apache-2.0", url("http://www.opensource.org/licenses/apache2.0.php"))
-git.useGitDescribe := true
-
-lazy val root = (project in file(".")).enablePlugins(GitVersioning)
+lazy val root = (project in file(".")).enablePlugins()
